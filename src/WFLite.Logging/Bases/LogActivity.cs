@@ -47,6 +47,14 @@ namespace WFLite.Logging.Bases
             _logger = logger;
         }
 
+        public LogActivity(ILogger<TCategoryName> logger, IVariable message, IVariable args, IVariable eventId = null, IVariable exception = null)
+        {
+            EventId = eventId;
+            Exception = exception;
+            Message = message;
+            Args = args;
+        }
+
         protected sealed override bool run()
         {
             var eventId = EventId?.GetValue<EventId>();

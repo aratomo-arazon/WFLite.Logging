@@ -9,6 +9,7 @@
 
 using Microsoft.Extensions.Logging;
 using System;
+using WFLite.Interfaces;
 using WFLite.Logging.Bases;
 
 namespace WFLite.Logging.Activities
@@ -17,6 +18,11 @@ namespace WFLite.Logging.Activities
     {
         public LogTraceActivity(ILogger<TCategoryName> logger)
             : base(logger)
+        {
+        }
+
+        public LogTraceActivity(ILogger<TCategoryName> logger, IVariable message, IVariable args, IVariable eventId, IVariable exception)
+            : base(logger, message, args, eventId, exception)
         {
         }
 

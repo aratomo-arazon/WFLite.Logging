@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WFLite.Logging", "src\WFLite.Logging\WFLite.Logging.csproj", "{593D9DCF-F1B7-4A64-979D-6AEB394E3064}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WFLite.Logging.HelloWorld", "examples\WFLite.Logging.HelloWorld\WFLite.Logging.HelloWorld.csproj", "{98E04A30-543E-415B-8BCE-41757AF0F966}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{593D9DCF-F1B7-4A64-979D-6AEB394E3064}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{593D9DCF-F1B7-4A64-979D-6AEB394E3064}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{593D9DCF-F1B7-4A64-979D-6AEB394E3064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98E04A30-543E-415B-8BCE-41757AF0F966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98E04A30-543E-415B-8BCE-41757AF0F966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98E04A30-543E-415B-8BCE-41757AF0F966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98E04A30-543E-415B-8BCE-41757AF0F966}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,7 +21,7 @@ namespace WFLite.Logging.Activities
         {
         }
 
-        public LogDebugActivity(ILogger<TCategoryName> logger, IVariable message, IVariable args, IVariable eventId = null, IVariable exception = null)
+        public LogDebugActivity(ILogger<TCategoryName> logger, IVariable message, IVariable args = null, IVariable eventId = null, IVariable exception = null)
             : base(logger, message, args, eventId, exception)
         {
         }

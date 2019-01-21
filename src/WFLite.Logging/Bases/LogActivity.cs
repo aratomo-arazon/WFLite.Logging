@@ -11,24 +11,13 @@ using Microsoft.Extensions.Logging;
 using System;
 using WFLite.Activities;
 using WFLite.Interfaces;
+using WFLite.Variables;
 
 namespace WFLite.Logging.Bases
 {
     public abstract class LogActivity<TCategoryName> : SyncActivity
     {
         private readonly ILogger<TCategoryName> _logger;
-
-        public IVariable EventId
-        {
-            private get;
-            set;
-        }
-
-        public IVariable Exception
-        {
-            private get;
-            set;
-        }
 
         public IVariable Message
         {
@@ -42,25 +31,57 @@ namespace WFLite.Logging.Bases
             set;
         }
 
+        public IVariable EventId
+        {
+            private get;
+            set;
+        }
+
+        public IVariable Exception
+        {
+            private get;
+            set;
+        }
+
         public LogActivity(ILogger<TCategoryName> logger)
         {
             _logger = logger;
         }
 
-        public LogActivity(ILogger<TCategoryName> logger, IVariable message, IVariable args, IVariable eventId = null, IVariable exception = null)
+        public LogActivity(ILogger<TCategoryName> logger, IVariable message, IVariable args = null, IVariable eventId = null, IVariable exception = null)
         {
-            EventId = eventId;
-            Exception = exception;
+            _logger = logger;
+
             Message = message;
             Args = args;
+            EventId = eventId;
+            Exception = exception;
+        }
+
+        protected sealed override void initialize()
+        {
+            if (Args == null)
+            {
+                Args = new NullVariable();
+            }
+
+            if (EventId == null)
+            {
+                EventId = new NullVariable();
+            }
+
+            if (Exception == null)
+            {
+                Exception = new NullVariable();
+            }
         }
 
         protected sealed override bool run()
         {
-            var eventId = EventId?.GetValue<EventId>();
-            var exception = Exception?.GetValue<Exception>();
             var message = Message.GetValue<string>();
-            var args = Args?.GetValue<object[]>();
+            var args = Args.GetValue<object[]>();
+            var eventId = EventId.GetValue<EventId?>();
+            var exception = Exception.GetValue<Exception>();
 
             if (eventId == null && exception == null)
             {

@@ -23,6 +23,16 @@ namespace WFLite.Logging.Variables
             set;
         }
 
+        public ArgsVariable()
+        {
+        }
+
+        public ArgsVariable(IEnumerable<IVariable> args, IConverter converter = null)
+        {
+            Args = args;
+            Converter = converter;  // TODO
+        }
+
         protected sealed override object getValue()
         {
             return Args.Select(a => a.GetValue()).ToArray();

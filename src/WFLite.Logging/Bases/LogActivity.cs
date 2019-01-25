@@ -80,7 +80,7 @@ namespace WFLite.Logging.Bases
         {
             var message = Message.GetValue<string>();
             var args = Args.GetValue<object[]>();
-            var eventId = EventId.GetValue<EventId?>();
+            var eventId = EventId.GetValue();
             var exception = Exception.GetValue<Exception>();
 
             if (eventId == null && exception == null)
@@ -89,7 +89,7 @@ namespace WFLite.Logging.Bases
             }
             else if (eventId != null && exception == null)
             {
-                log(_logger, eventId.Value, message, args);
+                log(_logger, (EventId)eventId, message, args);
             }
             else if (eventId == null && exception != null)
             {
@@ -97,7 +97,7 @@ namespace WFLite.Logging.Bases
             }
             else
             {
-                log(_logger, eventId.Value, exception, message, args);
+                log(_logger, (EventId)eventId, exception, message, args);
             }
 
             return true;

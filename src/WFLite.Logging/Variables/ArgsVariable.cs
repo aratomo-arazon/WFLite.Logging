@@ -28,9 +28,9 @@ namespace WFLite.Logging.Variables
         }
 
         public ArgsVariable(IEnumerable<IVariable> args, IConverter converter = null)
+            : base(converter)
         {
             Args = args;
-            Converter = converter;  // TODO
         }
 
         protected sealed override object getValue()

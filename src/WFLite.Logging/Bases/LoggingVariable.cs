@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using WFLite.Bases;
+using WFLite.Interfaces;
 
 namespace WFLite.Logging.Bases
 {
@@ -11,6 +12,12 @@ namespace WFLite.Logging.Bases
         private readonly ILogger<TCategoryName> _logger;
 
         public LoggingVariable(ILogger<TCategoryName> logger)
+        {
+            _logger = logger;
+        }
+
+        public LoggingVariable(ILogger<TCategoryName> logger, IConverter converter = null)
+            : base(converter)
         {
             _logger = logger;
         }

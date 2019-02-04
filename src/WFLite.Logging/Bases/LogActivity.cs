@@ -15,40 +15,44 @@ using WFLite.Variables;
 
 namespace WFLite.Logging.Bases
 {
-    public abstract class LogActivity<TCategoryName> : SyncActivity
+    public abstract class LogActivity : SyncActivity
     {
-        private readonly ILogger<TCategoryName> _logger;
+        private readonly ILogger _logger;
 
-        public IVariable Message
+        public IOutVariable<string> Message
         {
             private get;
             set;
         }
 
-        public IVariable Args
+        public IOutVariable<object[]> Args
         {
             private get;
             set;
         }
 
-        public IVariable EventId
+        public IOutVariable<EventId> EventId
         {
             private get;
             set;
         }
 
-        public IVariable Exception
+        public IOutVariable<Exception> Exception
         {
             private get;
             set;
         }
 
-        public LogActivity(ILogger<TCategoryName> logger)
+        public LogActivity(ILogger logger)
         {
             _logger = logger;
         }
 
-        public LogActivity(ILogger<TCategoryName> logger, IVariable message, IVariable args = null, IVariable eventId = null, IVariable exception = null)
+        public LogActivity(ILogger logger,
+            IOutVariable<string> message,
+            IOutVariable<object[]> args = null,
+            IOutVariable<EventId> eventId = null, 
+            IOutVariable<Exception> exception = null)
         {
             _logger = logger;
 
@@ -62,26 +66,26 @@ namespace WFLite.Logging.Bases
         {
             if (Args == null)
             {
-                Args = new NullVariable();
+                Args = new NullVariable<object[]>();
             }
 
             if (EventId == null)
             {
-                EventId = new NullVariable();
+                EventId = new NullVariable<EventId>();
             }
 
             if (Exception == null)
             {
-                Exception = new NullVariable();
+                Exception = new NullVariable<Exception>();
             }
         }
 
         protected sealed override bool run()
         {
-            var message = Message.GetValue<string>();
-            var args = Args.GetValue<object[]>();
-            var eventId = EventId.GetValue();
-            var exception = Exception.GetValue<Exception>();
+            var message = Message.GetValue();
+            var args = Args.GetValue();
+            var eventId = EventId.GetValueAsObject();
+            var exception = Exception.GetValue();
 
             if (eventId == null && exception == null)
             {
@@ -103,12 +107,12 @@ namespace WFLite.Logging.Bases
             return true;
         }
 
-        protected abstract void log(ILogger<TCategoryName> logger, EventId eventId, Exception exception, string message, object[] args);
+        protected abstract void log(ILogger logger, EventId eventId, Exception exception, string message, object[] args);
 
-        protected abstract void log(ILogger<TCategoryName> logger, EventId eventId, string message, object[] args);
+        protected abstract void log(ILogger logger, EventId eventId, string message, object[] args);
 
-        protected abstract void log(ILogger<TCategoryName> logger, Exception exception, string message, object[] args);
+        protected abstract void log(ILogger logger, Exception exception, string message, object[] args);
 
-        protected abstract void log(ILogger<TCategoryName> logger, string message, object[] args);
+        protected abstract void log(ILogger logger, string message, object[] args);
      }
 }

@@ -1,16 +1,22 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿/*
+ * LoggingCondition.cs
+ *
+ * Copyright (c) 2019 aratomo-arazon
+ *
+ * This software is released under the MIT License.
+ * http://opensource.org/licenses/mit-license.php
+ */
+
+using Microsoft.Extensions.Logging;
 using WFLite.Bases;
 
 namespace WFLite.Logging.Bases
 {
-    public abstract class LoggingCondition<TCategoryName> : Condition
+    public abstract class LoggingCondition : Condition
     {
-        private readonly ILogger<TCategoryName> _logger;
+        private readonly ILogger _logger;
 
-        public LoggingCondition(ILogger<TCategoryName> logger)
+        public LoggingCondition(ILogger logger)
         {
             _logger = logger;
         }
@@ -20,6 +26,6 @@ namespace WFLite.Logging.Bases
             return check(_logger);
         }
 
-        protected abstract bool check(ILogger<TCategoryName> logger);
+        protected abstract bool check(ILogger logger);
     }
 }

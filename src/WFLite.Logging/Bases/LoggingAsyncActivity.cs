@@ -1,18 +1,24 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿/*
+ * LoggingAsyncActivity.cs
+ *
+ * Copyright (c) 2019 aratomo-arazon
+ *
+ * This software is released under the MIT License.
+ * http://opensource.org/licenses/mit-license.php
+ */
+
+using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 using WFLite.Activities;
 
 namespace WFLite.Logging.Bases
 {
-    public abstract class LoggingAsyncActivity<TCategoryName> : AsyncActivity
+    public abstract class LoggingAsyncActivity : AsyncActivity
     {
-        private readonly ILogger<TCategoryName> _logger;
+        private readonly ILogger _logger;
 
-        public LoggingAsyncActivity(ILogger<TCategoryName> logger)
+        public LoggingAsyncActivity(ILogger logger)
         {
             _logger = logger;
         }
@@ -22,6 +28,6 @@ namespace WFLite.Logging.Bases
             return run(_logger, cancellationToken);
         }
 
-        protected abstract Task<bool> run(ILogger<TCategoryName> logger, CancellationToken cancellationToken);
+        protected abstract Task<bool> run(ILogger logger, CancellationToken cancellationToken);
     }
 }

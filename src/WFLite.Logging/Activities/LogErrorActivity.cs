@@ -14,34 +14,38 @@ using WFLite.Logging.Bases;
 
 namespace WFLite.Logging.Activities
 {
-    public class LogErrorActivity<TCategoryName> : LogActivity<TCategoryName>
+    public class LogErrorActivity : LogActivity
     {
-        public LogErrorActivity(ILogger<TCategoryName> logger)
+        public LogErrorActivity(ILogger logger)
             : base(logger)
         {
         }
 
-        public LogErrorActivity(ILogger<TCategoryName> logger, IVariable message, IVariable args = null, IVariable eventId = null, IVariable exception = null)
+        public LogErrorActivity(ILogger logger,
+            IOutVariable<string> message,
+            IOutVariable<object[]> args = null,
+            IOutVariable<EventId> eventId = null,
+            IOutVariable<Exception> exception = null)
             : base(logger, message, args, eventId, exception)
         {
         }
 
-        protected sealed override void log(ILogger<TCategoryName> logger, EventId eventId, Exception exception, string message, object[] args)
+        protected sealed override void log(ILogger logger, EventId eventId, Exception exception, string message, object[] args)
         {
             logger.LogError(eventId, exception, message, args);
         }
 
-        protected sealed override void log(ILogger<TCategoryName> logger, EventId eventId, string message, object[] args)
+        protected sealed override void log(ILogger logger, EventId eventId, string message, object[] args)
         {
             logger.LogError(eventId, message, args);
         }
 
-        protected sealed override void log(ILogger<TCategoryName> logger, Exception exception, string message, object[] args)
+        protected sealed override void log(ILogger logger, Exception exception, string message, object[] args)
         {
             logger.LogError(exception, message, args);
         }
 
-        protected sealed override void log(ILogger<TCategoryName> logger, string message, object[] args)
+        protected sealed override void log(ILogger logger, string message, object[] args)
         {
             logger.LogError(message, args);
         }

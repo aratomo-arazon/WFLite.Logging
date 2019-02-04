@@ -6,8 +6,7 @@
  * This software is released under the MIT License.
  * http://opensource.org/licenses/mit-license.php
  */
- 
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using WFLite.Bases;
@@ -15,9 +14,9 @@ using WFLite.Interfaces;
 
 namespace WFLite.Logging.Variables
 {
-    public class ArgsVariable : Variable
+    public class ArgsVariable : OutVariable<object[]>
     {
-        public IEnumerable<IVariable> Args
+        public IEnumerable<IOutVariable> Args
         {
             private get;
             set;
@@ -27,20 +26,14 @@ namespace WFLite.Logging.Variables
         {
         }
 
-        public ArgsVariable(IEnumerable<IVariable> args, IConverter converter = null)
-            : base(converter)
+        public ArgsVariable(IEnumerable<IOutVariable> args)
         {
             Args = args;
         }
 
         protected sealed override object getValue()
         {
-            return Args.Select(a => a.GetValue()).ToArray();
-        }
-
-        protected sealed override void setValue(object value)
-        {
-            throw new NotSupportedException();
+            return Args.Select(a => a.GetValueAsObject()).ToArray();
         }
     }
 }

@@ -8,26 +8,26 @@
  */
 
 using Microsoft.Extensions.Logging;
-using System.Threading;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging.Abstractions;
 using WFLite.Activities;
 
 namespace WFLite.Logging.Bases
 {
     public abstract class LoggingAsyncActivity : AsyncActivity
     {
-        private readonly ILogger _logger;
+        public ILogger Logger
+        {
+            protected get;
+            set;
+        } = NullLogger.Instance;
+
+        public LoggingAsyncActivity()
+        {
+        }
 
         public LoggingAsyncActivity(ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
-
-        protected sealed override Task<bool> run(CancellationToken cancellationToken)
-        {
-            return run(_logger, cancellationToken);
-        }
-
-        protected abstract Task<bool> run(ILogger logger, CancellationToken cancellationToken);
     }
 }

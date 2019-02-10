@@ -8,57 +8,61 @@
  */
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace WFLite.Logging.Bases
 {
     public abstract class LoggingConverter : WFLite.Bases.Converter
     {
-        private readonly ILogger _logger;
+        public ILogger Logger
+        {
+            protected get;
+            set;
+        } = NullLogger.Instance;
+
+        public LoggingConverter()
+        {
+        }
 
         public LoggingConverter(ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
-
-        protected sealed override object convert(object value)
-        {
-            return convert(_logger, value);
-        }
-
-        protected abstract object convert(ILogger logger, object value);
     }
 
     public abstract class LoggingConverter<TValue> : WFLite.Bases.Converter<TValue>
     {
-        private readonly ILogger _logger;
+        public ILogger Logger
+        {
+            protected get;
+            set;
+        } = NullLogger.Instance;
+
+        public LoggingConverter()
+        {
+        }
 
         public LoggingConverter(ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
-
-        protected sealed override TValue convert(object value)
-        {
-            return convert(_logger, value);
-        }
-
-        protected abstract TValue convert(ILogger logger, object value);
     }
 
     public abstract class LoggingConverter<TInValue, TOutValue> : WFLite.Bases.Converter<TInValue, TOutValue>
     {
-        private readonly ILogger _logger;
+        public ILogger Logger
+        {
+            protected get;
+            set;
+        } = NullLogger.Instance;
+
+        public LoggingConverter()
+        {
+        }
 
         public LoggingConverter(ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
-
-        protected sealed override TOutValue convert(TInValue value)
-        {
-            return convert(_logger, value);
-        }
-
-        protected abstract TOutValue convert(ILogger logger, TInValue value);
     }
 }

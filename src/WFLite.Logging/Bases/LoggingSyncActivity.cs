@@ -8,24 +8,26 @@
  */
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using WFLite.Activities;
 
 namespace WFLite.Logging.Bases
 {
     public abstract class LoggingSyncActivity : SyncActivity
     {
-        private readonly ILogger _logger;
+        public ILogger Logger
+        {
+            protected get;
+            set;
+        } = NullLogger.Instance;
+
+        public LoggingSyncActivity()
+        {
+        }
 
         public LoggingSyncActivity(ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
-
-        protected sealed override bool run()
-        {
-            return run(_logger);
-        }
-
-        protected abstract bool run(ILogger logger);
     }
 }

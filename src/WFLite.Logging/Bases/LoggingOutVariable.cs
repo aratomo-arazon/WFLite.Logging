@@ -8,41 +8,67 @@
  */
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using WFLite.Bases;
+using WFLite.Interfaces;
 
 namespace WFLite.Logging.Bases
 {
     public abstract class LoggingOutVariable : OutVariable
     {
-        private readonly ILogger _logger;
+        public ILogger Logger
+        {
+            protected get;
+            set;
+        } = NullLogger.Instance;
+
+        public LoggingOutVariable()
+        {
+        }
 
         public LoggingOutVariable(ILogger logger)
         {
-            _logger = logger;
-        }
-        　
-        protected sealed override object getValue()
-        {
-            return getValue(_logger);
+            Logger = logger;
         }
 
-        protected abstract object getValue(ILogger logger);
+        public LoggingOutVariable(IConverter converter = null)
+            : base(converter)
+        {
+        }
+
+        public LoggingOutVariable(ILogger logger, IConverter converter = null)
+            : base(converter)
+        {
+            Logger = logger;
+        }
     }
 
     public abstract class LoggingOutVariable<TOutValue> : OutVariable<TOutValue>
     {
-        private readonly ILogger _logger;
+        public ILogger Logger
+        {
+            protected get;
+            set;
+        } = NullLogger.Instance;
+
+        public LoggingOutVariable()
+        {
+        }
 
         public LoggingOutVariable(ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
 
-        protected sealed override object getValue()
+        public LoggingOutVariable(IConverter<TOutValue> converter = null)
+            : base(converter)
         {
-            return getValue(_logger);
         }
 
-        protected abstract object getValue(ILogger logger);
+        public LoggingOutVariable(ILogger logger, IConverter<TOutValue> converter = null)
+            : base(converter)
+        {
+            Logger = logger;
+        }
     }
 }

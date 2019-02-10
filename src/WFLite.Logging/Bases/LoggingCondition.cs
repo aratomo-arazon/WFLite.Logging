@@ -8,24 +8,26 @@
  */
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using WFLite.Bases;
 
 namespace WFLite.Logging.Bases
 {
     public abstract class LoggingCondition : Condition
     {
-        private readonly ILogger _logger;
+        public ILogger Logger
+        {
+            protected get;
+            set;
+        } = NullLogger.Instance;
+
+        public LoggingCondition()
+        {
+        }
 
         public LoggingCondition(ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
-
-        protected sealed override bool check()
-        {
-            return check(_logger);
-        }
-
-        protected abstract bool check(ILogger logger);
     }
 }

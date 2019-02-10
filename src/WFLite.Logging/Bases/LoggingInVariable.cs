@@ -8,41 +8,44 @@
  */
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using WFLite.Bases;
 
 namespace WFLite.Logging.Bases
 {
     public abstract class LoggingInVariable : InVariable
     {
-        private readonly ILogger _logger;
+        public ILogger Logger
+        {
+            protected get;
+            set;
+        } = NullLogger.Instance;
+
+        public LoggingInVariable()
+        {
+        }
 
         public LoggingInVariable(ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
-        　
-        protected sealed override void setValue(object value)
-        {
-            setValue(_logger, value);
-        }
-
-        protected abstract void setValue(ILogger logger, object value);
     }
 
     public abstract class LoggingInVariable<TInValue> : InVariable<TInValue>
     {
-        private readonly ILogger _logger;
+        public ILogger Logger
+        {
+            protected get;
+            set;
+        } = NullLogger.Instance;
+
+        public LoggingInVariable()
+        {
+        }
 
         public LoggingInVariable(ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
-
-        protected sealed override void setValue(object value)
-        {
-            setValue(_logger, value);
-        }
-
-        protected abstract void setValue(ILogger logger, object value);
     }
 }

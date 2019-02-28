@@ -10,6 +10,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using WFLite.Activities;
+using WFLite.Bases;
 
 namespace WFLite.Logging.Bases
 {

@@ -10,6 +10,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using WFLite.Activities;
+using WFLite.Bases;
 using WFLite.Interfaces;
 using WFLite.Variables;
 
